@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,10 +29,13 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text('Flutter Demo Home Page'),
+          title: const Text('Flutter Demo  Page'),
         ),
-        body: const Center(
-          child: Text("Hello Word"),
+        body: GoogleMap(
+          initialCameraPosition: CameraPosition(
+            zoom: 13,
+            target: LatLng(37.43296265331129, -122.08832357078792),
+          ),
         ));
   }
 }
