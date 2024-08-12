@@ -24,4 +24,9 @@ class MapLogicNotifier extends Notifier<MapPageState> {
   void toggleMarker() {
     state = state.copyWith(isSelectionInProgress: !state.isSelectionInProgress);
   }
+
+  void addMarker({required LatLng postion}) {
+    final previousPoints = [...state.mapPoints];
+    state = state.copyWith(mapPoints: [...previousPoints, postion]);
+  }
 }

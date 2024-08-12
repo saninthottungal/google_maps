@@ -16,6 +16,7 @@ class MapPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final pod = mapNotifierProvider;
     useEffect(() {
       Future.delayed(
         Duration.zero,
@@ -36,7 +37,7 @@ class MapPage extends HookWidget {
       );
       return null;
     });
-    final pod = mapNotifierProvider;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Map Page"),
@@ -47,7 +48,13 @@ class MapPage extends HookWidget {
           Consumer(builder: (context, ref, _) {
             final markerPoints =
                 ref.watch(pod.select((value) => value.mapPoints));
+            final showMarkedArea =
+                ref.watch(pod.select((value) => value.showMarkedArea));
             return GoogleMap(
+              onTap: (argument) {
+                if (!ref.read(pod).isSelectionInProgress) return;
+                ref.read(pod.notifier).addMarker(postion: argument);
+              },
               myLocationButtonEnabled: false,
               markers: List.generate(
                 markerPoints.length,
@@ -62,6 +69,7 @@ class MapPage extends HookWidget {
               ).toSet(),
               polygons: <Polygon>{
                 Polygon(
+                  geodesic: true,
                   polygonId: const PolygonId("1"),
                   points: markerPoints.isEmpty
                       ? []
@@ -69,9 +77,10 @@ class MapPage extends HookWidget {
                           ...markerPoints,
                           markerPoints.first,
                         ],
-                  fillColor: Colors.blue.shade100,
+                  fillColor:
+                      showMarkedArea ? Colors.black26 : Colors.transparent,
                   strokeColor: Colors.black38,
-                  strokeWidth: 6,
+                  strokeWidth: 4,
                 )
               },
               initialCameraPosition: _cameraPosition,
