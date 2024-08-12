@@ -17,8 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$MapPageState {
   bool get isLoading => throw _privateConstructorUsedError;
-  List<LatLng> get polyPoints => throw _privateConstructorUsedError;
-  List<LatLng> get markerPoints => throw _privateConstructorUsedError;
+  List<LatLng> get mapPoints => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MapPageStateCopyWith<MapPageState> get copyWith =>
@@ -31,8 +30,7 @@ abstract class $MapPageStateCopyWith<$Res> {
           MapPageState value, $Res Function(MapPageState) then) =
       _$MapPageStateCopyWithImpl<$Res, MapPageState>;
   @useResult
-  $Res call(
-      {bool isLoading, List<LatLng> polyPoints, List<LatLng> markerPoints});
+  $Res call({bool isLoading, List<LatLng> mapPoints});
 }
 
 /// @nodoc
@@ -49,21 +47,16 @@ class _$MapPageStateCopyWithImpl<$Res, $Val extends MapPageState>
   @override
   $Res call({
     Object? isLoading = null,
-    Object? polyPoints = null,
-    Object? markerPoints = null,
+    Object? mapPoints = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      polyPoints: null == polyPoints
-          ? _value.polyPoints
-          : polyPoints // ignore: cast_nullable_to_non_nullable
-              as List<LatLng>,
-      markerPoints: null == markerPoints
-          ? _value.markerPoints
-          : markerPoints // ignore: cast_nullable_to_non_nullable
+      mapPoints: null == mapPoints
+          ? _value.mapPoints
+          : mapPoints // ignore: cast_nullable_to_non_nullable
               as List<LatLng>,
     ) as $Val);
   }
@@ -77,8 +70,7 @@ abstract class _$$MapPageStateImplCopyWith<$Res>
       __$$MapPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool isLoading, List<LatLng> polyPoints, List<LatLng> markerPoints});
+  $Res call({bool isLoading, List<LatLng> mapPoints});
 }
 
 /// @nodoc
@@ -93,21 +85,16 @@ class __$$MapPageStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = null,
-    Object? polyPoints = null,
-    Object? markerPoints = null,
+    Object? mapPoints = null,
   }) {
     return _then(_$MapPageStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      polyPoints: null == polyPoints
-          ? _value._polyPoints
-          : polyPoints // ignore: cast_nullable_to_non_nullable
-              as List<LatLng>,
-      markerPoints: null == markerPoints
-          ? _value._markerPoints
-          : markerPoints // ignore: cast_nullable_to_non_nullable
+      mapPoints: null == mapPoints
+          ? _value._mapPoints
+          : mapPoints // ignore: cast_nullable_to_non_nullable
               as List<LatLng>,
     ));
   }
@@ -118,46 +105,29 @@ class __$$MapPageStateImplCopyWithImpl<$Res>
 class _$MapPageStateImpl implements _MapPageState {
   _$MapPageStateImpl(
       {this.isLoading = false,
-      final List<LatLng> polyPoints = const [
-        LatLng(11.075777785018062, 75.94688319328512),
-        LatLng(11.073250814064128, 75.95016621702247),
-        LatLng(11.070197361727423, 75.94606780176865),
-        LatLng(11.073693035555733, 75.94417952667789),
-        LatLng(11.075777785018062, 75.94688319328512)
-      ],
-      final List<LatLng> markerPoints = const [
+      final List<LatLng> mapPoints = const [
         LatLng(11.075777785018062, 75.94688319328512),
         LatLng(11.073250814064128, 75.95016621702247),
         LatLng(11.070197361727423, 75.94606780176865),
         LatLng(11.073693035555733, 75.94417952667789)
       ]})
-      : _polyPoints = polyPoints,
-        _markerPoints = markerPoints;
+      : _mapPoints = mapPoints;
 
   @override
   @JsonKey()
   final bool isLoading;
-  final List<LatLng> _polyPoints;
+  final List<LatLng> _mapPoints;
   @override
   @JsonKey()
-  List<LatLng> get polyPoints {
-    if (_polyPoints is EqualUnmodifiableListView) return _polyPoints;
+  List<LatLng> get mapPoints {
+    if (_mapPoints is EqualUnmodifiableListView) return _mapPoints;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_polyPoints);
-  }
-
-  final List<LatLng> _markerPoints;
-  @override
-  @JsonKey()
-  List<LatLng> get markerPoints {
-    if (_markerPoints is EqualUnmodifiableListView) return _markerPoints;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_markerPoints);
+    return EqualUnmodifiableListView(_mapPoints);
   }
 
   @override
   String toString() {
-    return 'MapPageState(isLoading: $isLoading, polyPoints: $polyPoints, markerPoints: $markerPoints)';
+    return 'MapPageState(isLoading: $isLoading, mapPoints: $mapPoints)';
   }
 
   @override
@@ -168,17 +138,12 @@ class _$MapPageStateImpl implements _MapPageState {
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             const DeepCollectionEquality()
-                .equals(other._polyPoints, _polyPoints) &&
-            const DeepCollectionEquality()
-                .equals(other._markerPoints, _markerPoints));
+                .equals(other._mapPoints, _mapPoints));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      isLoading,
-      const DeepCollectionEquality().hash(_polyPoints),
-      const DeepCollectionEquality().hash(_markerPoints));
+      runtimeType, isLoading, const DeepCollectionEquality().hash(_mapPoints));
 
   @JsonKey(ignore: true)
   @override
@@ -188,17 +153,13 @@ class _$MapPageStateImpl implements _MapPageState {
 }
 
 abstract class _MapPageState implements MapPageState {
-  factory _MapPageState(
-      {final bool isLoading,
-      final List<LatLng> polyPoints,
-      final List<LatLng> markerPoints}) = _$MapPageStateImpl;
+  factory _MapPageState({final bool isLoading, final List<LatLng> mapPoints}) =
+      _$MapPageStateImpl;
 
   @override
   bool get isLoading;
   @override
-  List<LatLng> get polyPoints;
-  @override
-  List<LatLng> get markerPoints;
+  List<LatLng> get mapPoints;
   @override
   @JsonKey(ignore: true)
   _$$MapPageStateImplCopyWith<_$MapPageStateImpl> get copyWith =>

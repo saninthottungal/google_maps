@@ -12,6 +12,6 @@ class MapPageState with _$MapPageState {
       LatLng(11.070197361727423, 75.94606780176865),
       LatLng(11.073693035555733, 75.94417952667789),
     ])
-    List<LatLng> markerPoints,
+    List<LatLng> mapPoints,
   }) = _MapPageState;
 }
