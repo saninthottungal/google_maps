@@ -1,11 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maps/map_page/map.logic.dart';
 
-class MapPage extends StatelessWidget {
+class MapPage extends HookWidget {
   MapPage({super.key});
 
   final Completer<GoogleMapController> _controller =
@@ -15,6 +16,26 @@ class MapPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    useEffect(() {
+      Future.delayed(
+        Duration.zero,
+        () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              behavior: SnackBarBehavior.floating,
+              content: Text(
+                "Tap and hold marker to change region",
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(color: Colors.white),
+              ),
+            ),
+          );
+        },
+      );
+      return null;
+    });
     final pod = mapNotifierProvider;
     return Scaffold(
       appBar: AppBar(
