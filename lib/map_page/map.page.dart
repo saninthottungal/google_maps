@@ -21,18 +21,18 @@ class MapPage extends HookWidget {
       Future.delayed(
         Duration.zero,
         () {
-          // ScaffoldMessenger.of(context).showSnackBar(
-          //   SnackBar(
-          //     behavior: SnackBarBehavior.floating,
-          //     content: Text(
-          //       "Tap and hold marker to change region",
-          //       style: Theme.of(context)
-          //           .textTheme
-          //           .titleLarge
-          //           ?.copyWith(color: Colors.white),
-          //     ),
-          //   ),
-          // );
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              behavior: SnackBarBehavior.floating,
+              content: Text(
+                "Tap and hold marker to change region",
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(color: Colors.white),
+              ),
+            ),
+          );
         },
       );
       return null;
@@ -65,6 +65,7 @@ class MapPage extends HookWidget {
                   onTap: () {
                     if (ref.read(pod).isDeletionInProgress) return;
                     ref.read(pod.notifier).toggleDeletion();
+                    ref.read(pod.notifier).selectedMarker(markerPoints[index]);
                   },
                   onDragEnd: (value) {
                     ref.read(pod.notifier).changePosition(value, index);
@@ -129,6 +130,7 @@ class MapPage extends HookWidget {
                     onPressed: () {
                       if (ref.read(pod).isDeletionInProgress) {
                         ref.read(pod.notifier).removeMarker();
+                        ref.read(pod.notifier).toggleDeletion();
                       } else {
                         ref.read(pod.notifier).toggleSelection();
                       }
