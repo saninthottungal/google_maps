@@ -15,13 +15,13 @@ class MapPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final pod = mapNotifierProvider;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Map Page"),
       ),
       body: Consumer(builder: (context, ref, _) {
-        final markerPoints =
-            ref.watch(mapNotifierProvider.select((value) => value.mapPoints));
+        final markerPoints = ref.watch(pod.select((value) => value.mapPoints));
         return GoogleMap(
           markers: List.generate(
             markerPoints.length,
@@ -29,6 +29,9 @@ class MapPage extends StatelessWidget {
               markerId: MarkerId("$index"),
               position: markerPoints[index],
               draggable: true,
+              onDragEnd: (value) {
+                ref.read(pod.notifier).changePosition(value, index);
+              },
             ),
           ).toSet(),
           polygons: <Polygon>{
