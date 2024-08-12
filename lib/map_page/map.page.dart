@@ -20,18 +20,18 @@ class MapPage extends HookWidget {
       Future.delayed(
         Duration.zero,
         () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              behavior: SnackBarBehavior.floating,
-              content: Text(
-                "Tap and hold marker to change region",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(color: Colors.white),
-              ),
-            ),
-          );
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(
+          //     behavior: SnackBarBehavior.floating,
+          //     content: Text(
+          //       "Tap and hold marker to change region",
+          //       style: Theme.of(context)
+          //           .textTheme
+          //           .titleLarge
+          //           ?.copyWith(color: Colors.white),
+          //     ),
+          //   ),
+          // );
         },
       );
       return null;
@@ -41,38 +41,65 @@ class MapPage extends HookWidget {
       appBar: AppBar(
         title: const Text("Map Page"),
       ),
-      body: Consumer(builder: (context, ref, _) {
-        final markerPoints = ref.watch(pod.select((value) => value.mapPoints));
-        return GoogleMap(
-          markers: List.generate(
-            markerPoints.length,
-            (index) => Marker(
-              markerId: MarkerId("$index"),
-              position: markerPoints[index],
-              draggable: true,
-              onDragEnd: (value) {
-                ref.read(pod.notifier).changePosition(value, index);
+      body: Stack(
+        alignment: Alignment.bottomLeft,
+        children: [
+          Consumer(builder: (context, ref, _) {
+            final markerPoints =
+                ref.watch(pod.select((value) => value.mapPoints));
+            return GoogleMap(
+              myLocationButtonEnabled: false,
+              markers: List.generate(
+                markerPoints.length,
+                (index) => Marker(
+                  markerId: MarkerId("$index"),
+                  position: markerPoints[index],
+                  draggable: true,
+                  onDragEnd: (value) {
+                    ref.read(pod.notifier).changePosition(value, index);
+                  },
+                ),
+              ).toSet(),
+              polygons: <Polygon>{
+                Polygon(
+                  polygonId: const PolygonId("1"),
+                  points: markerPoints.isEmpty
+                      ? []
+                      : [
+                          ...markerPoints,
+                          markerPoints.first,
+                        ],
+                  fillColor: Colors.blue.shade100,
+                  strokeColor: Colors.black38,
+                  strokeWidth: 6,
+                )
               },
-            ),
-          ).toSet(),
-          polygons: <Polygon>{
-            Polygon(
-              polygonId: const PolygonId("1"),
-              points: [
-                ...markerPoints,
-                markerPoints.first,
+              initialCameraPosition: _cameraPosition,
+              onMapCreated: (controller) {
+                _controller.complete(controller);
+              },
+            );
+          }),
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 45, horizontal: 20),
+            width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton.filled(
+                  onPressed: () {},
+                  icon: const Icon(Icons.layers_clear_sharp),
+                ),
+                FloatingActionButton.extended(
+                  onPressed: () {},
+                  label: const Text("Add Marker"),
+                  icon: const Icon(Icons.add),
+                )
               ],
-              fillColor: Colors.blue.shade100,
-              strokeColor: Colors.grey,
-              strokeWidth: 5,
-            )
-          },
-          initialCameraPosition: _cameraPosition,
-          onMapCreated: (controller) {
-            _controller.complete(controller);
-          },
-        );
-      }),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
