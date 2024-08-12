@@ -5,7 +5,7 @@ part 'map.state.freezed.dart';
 @freezed
 class MapPageState with _$MapPageState {
   factory MapPageState({
-    @Default(false) bool isLoading,
+    @Default(false) bool showMarkedArea,
     @Default(false) bool isSelectionInProgress,
     @Default([]) List<LatLng> mapPoints,
   }) = _MapPageState;

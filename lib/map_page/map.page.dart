@@ -80,24 +80,31 @@ class MapPage extends HookWidget {
               },
             );
           }),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 45, horizontal: 20),
-            width: double.infinity,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton.filled(
-                  onPressed: () {},
-                  icon: const Icon(Icons.layers_clear_sharp),
-                ),
-                FloatingActionButton.extended(
-                  onPressed: () {},
-                  label: const Text("Add Marker"),
-                  icon: const Icon(Icons.add),
-                )
-              ],
-            ),
-          )
+          Consumer(builder: (context, ref, _) {
+            final isSelectionInProgress =
+                ref.watch(pod.select((value) => value.isSelectionInProgress));
+            return Container(
+              margin: const EdgeInsets.symmetric(vertical: 45, horizontal: 20),
+              width: double.infinity,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  if (!isSelectionInProgress)
+                    IconButton.filled(
+                      onPressed: () {},
+                      icon: const Icon(Icons.layers_clear_sharp),
+                    ),
+                  FloatingActionButton.extended(
+                    onPressed: () {},
+                    label: Text(isSelectionInProgress ? "Done" : "Add Marker"),
+                    icon: Icon(
+                      isSelectionInProgress ? Icons.done : Icons.add,
+                    ),
+                  )
+                ],
+              ),
+            );
+          })
         ],
       ),
     );

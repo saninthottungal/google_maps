@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MapPageState {
-  bool get isLoading => throw _privateConstructorUsedError;
+  bool get showMarkedArea => throw _privateConstructorUsedError;
   bool get isSelectionInProgress => throw _privateConstructorUsedError;
   List<LatLng> get mapPoints => throw _privateConstructorUsedError;
 
@@ -32,7 +32,9 @@ abstract class $MapPageStateCopyWith<$Res> {
       _$MapPageStateCopyWithImpl<$Res, MapPageState>;
   @useResult
   $Res call(
-      {bool isLoading, bool isSelectionInProgress, List<LatLng> mapPoints});
+      {bool showMarkedArea,
+      bool isSelectionInProgress,
+      List<LatLng> mapPoints});
 }
 
 /// @nodoc
@@ -48,14 +50,14 @@ class _$MapPageStateCopyWithImpl<$Res, $Val extends MapPageState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isLoading = null,
+    Object? showMarkedArea = null,
     Object? isSelectionInProgress = null,
     Object? mapPoints = null,
   }) {
     return _then(_value.copyWith(
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
+      showMarkedArea: null == showMarkedArea
+          ? _value.showMarkedArea
+          : showMarkedArea // ignore: cast_nullable_to_non_nullable
               as bool,
       isSelectionInProgress: null == isSelectionInProgress
           ? _value.isSelectionInProgress
@@ -78,7 +80,9 @@ abstract class _$$MapPageStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool isLoading, bool isSelectionInProgress, List<LatLng> mapPoints});
+      {bool showMarkedArea,
+      bool isSelectionInProgress,
+      List<LatLng> mapPoints});
 }
 
 /// @nodoc
@@ -92,14 +96,14 @@ class __$$MapPageStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isLoading = null,
+    Object? showMarkedArea = null,
     Object? isSelectionInProgress = null,
     Object? mapPoints = null,
   }) {
     return _then(_$MapPageStateImpl(
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
+      showMarkedArea: null == showMarkedArea
+          ? _value.showMarkedArea
+          : showMarkedArea // ignore: cast_nullable_to_non_nullable
               as bool,
       isSelectionInProgress: null == isSelectionInProgress
           ? _value.isSelectionInProgress
@@ -117,14 +121,14 @@ class __$$MapPageStateImplCopyWithImpl<$Res>
 
 class _$MapPageStateImpl implements _MapPageState {
   _$MapPageStateImpl(
-      {this.isLoading = false,
+      {this.showMarkedArea = false,
       this.isSelectionInProgress = false,
       final List<LatLng> mapPoints = const []})
       : _mapPoints = mapPoints;
 
   @override
   @JsonKey()
-  final bool isLoading;
+  final bool showMarkedArea;
   @override
   @JsonKey()
   final bool isSelectionInProgress;
@@ -139,7 +143,7 @@ class _$MapPageStateImpl implements _MapPageState {
 
   @override
   String toString() {
-    return 'MapPageState(isLoading: $isLoading, isSelectionInProgress: $isSelectionInProgress, mapPoints: $mapPoints)';
+    return 'MapPageState(showMarkedArea: $showMarkedArea, isSelectionInProgress: $isSelectionInProgress, mapPoints: $mapPoints)';
   }
 
   @override
@@ -147,8 +151,8 @@ class _$MapPageStateImpl implements _MapPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MapPageStateImpl &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading) &&
+            (identical(other.showMarkedArea, showMarkedArea) ||
+                other.showMarkedArea == showMarkedArea) &&
             (identical(other.isSelectionInProgress, isSelectionInProgress) ||
                 other.isSelectionInProgress == isSelectionInProgress) &&
             const DeepCollectionEquality()
@@ -156,8 +160,8 @@ class _$MapPageStateImpl implements _MapPageState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, isSelectionInProgress,
-      const DeepCollectionEquality().hash(_mapPoints));
+  int get hashCode => Object.hash(runtimeType, showMarkedArea,
+      isSelectionInProgress, const DeepCollectionEquality().hash(_mapPoints));
 
   @JsonKey(ignore: true)
   @override
@@ -168,12 +172,12 @@ class _$MapPageStateImpl implements _MapPageState {
 
 abstract class _MapPageState implements MapPageState {
   factory _MapPageState(
-      {final bool isLoading,
+      {final bool showMarkedArea,
       final bool isSelectionInProgress,
       final List<LatLng> mapPoints}) = _$MapPageStateImpl;
 
   @override
-  bool get isLoading;
+  bool get showMarkedArea;
   @override
   bool get isSelectionInProgress;
   @override
