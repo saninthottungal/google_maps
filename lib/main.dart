@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:maps/map_page/map.page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,10 +31,14 @@ class MyHomePage extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: const Text('Flutter Demo  Page'),
         ),
-        body: GoogleMap(
-          initialCameraPosition: CameraPosition(
-            zoom: 13,
-            target: LatLng(37.43296265331129, -122.08832357078792),
+        body: Center(
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => MapPage(),
+              ));
+            },
+            child: const Text("Select Region from Map"),
           ),
         ));
   }

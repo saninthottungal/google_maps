@@ -13,9 +13,14 @@ class MapPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GoogleMap(
-      initialCameraPosition: _cameraPosition,
-      onMapCreated: (controller) => _controller.complete(controller),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Map Page"),
+      ),
+      body: GoogleMap(
+        initialCameraPosition: _cameraPosition,
+        onMapCreated: (controller) => _controller.complete(controller),
+      ),
     );
   }
 }
