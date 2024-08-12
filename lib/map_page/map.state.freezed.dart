@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$MapPageState {
   bool get showMarkedArea => throw _privateConstructorUsedError;
   bool get isSelectionInProgress => throw _privateConstructorUsedError;
+  bool get isDeletionInProgress => throw _privateConstructorUsedError;
   List<LatLng> get mapPoints => throw _privateConstructorUsedError;
+  LatLng? get selectedPostion => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MapPageStateCopyWith<MapPageState> get copyWith =>
@@ -34,7 +36,9 @@ abstract class $MapPageStateCopyWith<$Res> {
   $Res call(
       {bool showMarkedArea,
       bool isSelectionInProgress,
-      List<LatLng> mapPoints});
+      bool isDeletionInProgress,
+      List<LatLng> mapPoints,
+      LatLng? selectedPostion});
 }
 
 /// @nodoc
@@ -52,7 +56,9 @@ class _$MapPageStateCopyWithImpl<$Res, $Val extends MapPageState>
   $Res call({
     Object? showMarkedArea = null,
     Object? isSelectionInProgress = null,
+    Object? isDeletionInProgress = null,
     Object? mapPoints = null,
+    Object? selectedPostion = freezed,
   }) {
     return _then(_value.copyWith(
       showMarkedArea: null == showMarkedArea
@@ -63,10 +69,18 @@ class _$MapPageStateCopyWithImpl<$Res, $Val extends MapPageState>
           ? _value.isSelectionInProgress
           : isSelectionInProgress // ignore: cast_nullable_to_non_nullable
               as bool,
+      isDeletionInProgress: null == isDeletionInProgress
+          ? _value.isDeletionInProgress
+          : isDeletionInProgress // ignore: cast_nullable_to_non_nullable
+              as bool,
       mapPoints: null == mapPoints
           ? _value.mapPoints
           : mapPoints // ignore: cast_nullable_to_non_nullable
               as List<LatLng>,
+      selectedPostion: freezed == selectedPostion
+          ? _value.selectedPostion
+          : selectedPostion // ignore: cast_nullable_to_non_nullable
+              as LatLng?,
     ) as $Val);
   }
 }
@@ -82,7 +96,9 @@ abstract class _$$MapPageStateImplCopyWith<$Res>
   $Res call(
       {bool showMarkedArea,
       bool isSelectionInProgress,
-      List<LatLng> mapPoints});
+      bool isDeletionInProgress,
+      List<LatLng> mapPoints,
+      LatLng? selectedPostion});
 }
 
 /// @nodoc
@@ -98,7 +114,9 @@ class __$$MapPageStateImplCopyWithImpl<$Res>
   $Res call({
     Object? showMarkedArea = null,
     Object? isSelectionInProgress = null,
+    Object? isDeletionInProgress = null,
     Object? mapPoints = null,
+    Object? selectedPostion = freezed,
   }) {
     return _then(_$MapPageStateImpl(
       showMarkedArea: null == showMarkedArea
@@ -109,10 +127,18 @@ class __$$MapPageStateImplCopyWithImpl<$Res>
           ? _value.isSelectionInProgress
           : isSelectionInProgress // ignore: cast_nullable_to_non_nullable
               as bool,
+      isDeletionInProgress: null == isDeletionInProgress
+          ? _value.isDeletionInProgress
+          : isDeletionInProgress // ignore: cast_nullable_to_non_nullable
+              as bool,
       mapPoints: null == mapPoints
           ? _value._mapPoints
           : mapPoints // ignore: cast_nullable_to_non_nullable
               as List<LatLng>,
+      selectedPostion: freezed == selectedPostion
+          ? _value.selectedPostion
+          : selectedPostion // ignore: cast_nullable_to_non_nullable
+              as LatLng?,
     ));
   }
 }
@@ -123,7 +149,9 @@ class _$MapPageStateImpl implements _MapPageState {
   _$MapPageStateImpl(
       {this.showMarkedArea = false,
       this.isSelectionInProgress = false,
-      final List<LatLng> mapPoints = const []})
+      this.isDeletionInProgress = false,
+      final List<LatLng> mapPoints = const [],
+      this.selectedPostion})
       : _mapPoints = mapPoints;
 
   @override
@@ -132,6 +160,9 @@ class _$MapPageStateImpl implements _MapPageState {
   @override
   @JsonKey()
   final bool isSelectionInProgress;
+  @override
+  @JsonKey()
+  final bool isDeletionInProgress;
   final List<LatLng> _mapPoints;
   @override
   @JsonKey()
@@ -142,8 +173,11 @@ class _$MapPageStateImpl implements _MapPageState {
   }
 
   @override
+  final LatLng? selectedPostion;
+
+  @override
   String toString() {
-    return 'MapPageState(showMarkedArea: $showMarkedArea, isSelectionInProgress: $isSelectionInProgress, mapPoints: $mapPoints)';
+    return 'MapPageState(showMarkedArea: $showMarkedArea, isSelectionInProgress: $isSelectionInProgress, isDeletionInProgress: $isDeletionInProgress, mapPoints: $mapPoints, selectedPostion: $selectedPostion)';
   }
 
   @override
@@ -155,13 +189,22 @@ class _$MapPageStateImpl implements _MapPageState {
                 other.showMarkedArea == showMarkedArea) &&
             (identical(other.isSelectionInProgress, isSelectionInProgress) ||
                 other.isSelectionInProgress == isSelectionInProgress) &&
+            (identical(other.isDeletionInProgress, isDeletionInProgress) ||
+                other.isDeletionInProgress == isDeletionInProgress) &&
             const DeepCollectionEquality()
-                .equals(other._mapPoints, _mapPoints));
+                .equals(other._mapPoints, _mapPoints) &&
+            (identical(other.selectedPostion, selectedPostion) ||
+                other.selectedPostion == selectedPostion));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, showMarkedArea,
-      isSelectionInProgress, const DeepCollectionEquality().hash(_mapPoints));
+  int get hashCode => Object.hash(
+      runtimeType,
+      showMarkedArea,
+      isSelectionInProgress,
+      isDeletionInProgress,
+      const DeepCollectionEquality().hash(_mapPoints),
+      selectedPostion);
 
   @JsonKey(ignore: true)
   @override
@@ -174,14 +217,20 @@ abstract class _MapPageState implements MapPageState {
   factory _MapPageState(
       {final bool showMarkedArea,
       final bool isSelectionInProgress,
-      final List<LatLng> mapPoints}) = _$MapPageStateImpl;
+      final bool isDeletionInProgress,
+      final List<LatLng> mapPoints,
+      final LatLng? selectedPostion}) = _$MapPageStateImpl;
 
   @override
   bool get showMarkedArea;
   @override
   bool get isSelectionInProgress;
   @override
+  bool get isDeletionInProgress;
+  @override
   List<LatLng> get mapPoints;
+  @override
+  LatLng? get selectedPostion;
   @override
   @JsonKey(ignore: true)
   _$$MapPageStateImplCopyWith<_$MapPageStateImpl> get copyWith =>

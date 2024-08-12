@@ -21,8 +21,12 @@ class MapLogicNotifier extends Notifier<MapPageState> {
     state = state.copyWith(showMarkedArea: !state.showMarkedArea);
   }
 
-  void toggleMarker() {
+  void toggleSelection() {
     state = state.copyWith(isSelectionInProgress: !state.isSelectionInProgress);
+  }
+
+  void toggleDeletion() {
+    state = state.copyWith(isDeletionInProgress: !state.isDeletionInProgress);
   }
 
   void addMarker({required LatLng postion}) {
@@ -30,9 +34,9 @@ class MapLogicNotifier extends Notifier<MapPageState> {
     state = state.copyWith(mapPoints: [...previousPoints, postion]);
   }
 
-  void removeMarker({required LatLng postion}) {
+  void removeMarker() {
     final previousPoints = [...state.mapPoints];
-    previousPoints.remove(postion);
+    previousPoints.remove(state.selectedPostion);
     state = state.copyWith(mapPoints: previousPoints);
   }
 }

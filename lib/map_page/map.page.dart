@@ -48,7 +48,6 @@ class MapPage extends HookWidget {
           Consumer(builder: (context, ref, _) {
             final markerPoints =
                 ref.watch(pod.select((value) => value.mapPoints));
-            print(markerPoints);
             final showMarkedArea =
                 ref.watch(pod.select((value) => value.showMarkedArea));
             return GoogleMap(
@@ -64,9 +63,8 @@ class MapPage extends HookWidget {
                   position: markerPoints[index],
                   draggable: true,
                   onTap: () {
-                    ref
-                        .read(pod.notifier)
-                        .removeMarker(postion: markerPoints[index]);
+                    if (ref.read(pod).isDeletionInProgress) return;
+                    ref.read(pod.notifier).toggleDeletion();
                   },
                   onDragEnd: (value) {
                     ref.read(pod.notifier).changePosition(value, index);
@@ -99,6 +97,8 @@ class MapPage extends HookWidget {
           Consumer(builder: (context, ref, _) {
             final isSelectionInProgress =
                 ref.watch(pod.select((value) => value.isSelectionInProgress));
+            final isDeletionInProgress =
+                ref.watch(pod.select((value) => value.isDeletionInProgress));
             final showMarkedArea =
                 ref.watch(pod.select((value) => value.showMarkedArea));
             return Container(
@@ -111,21 +111,41 @@ class MapPage extends HookWidget {
                   if (!isSelectionInProgress)
                     IconButton.filled(
                       onPressed: () {
-                        ref.read(pod.notifier).toggleMarkedArea();
+                        if (ref.read(pod).isDeletionInProgress) {
+                          ref.read(pod.notifier).toggleDeletion();
+                        } else {
+                          ref.read(pod.notifier).toggleMarkedArea();
+                        }
                       },
                       icon: Icon(
-                        showMarkedArea
-                            ? Icons.layers_clear_sharp
-                            : Icons.layers,
+                        isDeletionInProgress
+                            ? Icons.close
+                            : showMarkedArea
+                                ? Icons.layers_clear_sharp
+                                : Icons.layers,
                       ),
                     ),
                   FloatingActionButton.extended(
                     onPressed: () {
-                      ref.read(pod.notifier).toggleMarker();
+                      if (ref.read(pod).isDeletionInProgress) {
+                        ref.read(pod.notifier).removeMarker();
+                      } else {
+                        ref.read(pod.notifier).toggleSelection();
+                      }
                     },
-                    label: Text(isSelectionInProgress ? "Done" : "Add Marker"),
+                    label: Text(
+                      isDeletionInProgress
+                          ? "Delete Marker"
+                          : isSelectionInProgress
+                              ? "Done"
+                              : "Add Marker",
+                    ),
                     icon: Icon(
-                      isSelectionInProgress ? Icons.done : Icons.add,
+                      isDeletionInProgress
+                          ? Icons.delete_outline
+                          : isSelectionInProgress
+                              ? Icons.done
+                              : Icons.add,
                     ),
                   )
                 ],

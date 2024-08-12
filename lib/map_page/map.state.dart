@@ -7,6 +7,8 @@ class MapPageState with _$MapPageState {
   factory MapPageState({
     @Default(false) bool showMarkedArea,
     @Default(false) bool isSelectionInProgress,
+    @Default(false) bool isDeletionInProgress,
     @Default([]) List<LatLng> mapPoints,
+    LatLng? selectedPostion,
   }) = _MapPageState;
 }
