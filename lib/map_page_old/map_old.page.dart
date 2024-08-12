@@ -17,26 +17,26 @@ class MapPageOld extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final pod = mapOldNotifierProvider;
-    // useEffect(() {
-    //   Future.delayed(
-    //     Duration.zero,
-    //     () {
-    //       ScaffoldMessenger.of(context).showSnackBar(
-    //         SnackBar(
-    //           behavior: SnackBarBehavior.floating,
-    //           content: Text(
-    //             "Tap and hold marker to change region",
-    //             style: Theme.of(context)
-    //                 .textTheme
-    //                 .titleLarge
-    //                 ?.copyWith(color: Colors.white),
-    //           ),
-    //         ),
-    //       );
-    //     },
-    //   );
-    //   return null;
-    // });
+    useEffect(() {
+      Future.delayed(
+        Duration.zero,
+        () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              behavior: SnackBarBehavior.floating,
+              content: Text(
+                "Tap and hold marker to change region",
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(color: Colors.white),
+              ),
+            ),
+          );
+        },
+      );
+      return null;
+    });
     return Scaffold(
       appBar: AppBar(
         title: const Text("Map Page"),
