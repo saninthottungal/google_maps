@@ -83,19 +83,30 @@ class MapPage extends HookWidget {
           Consumer(builder: (context, ref, _) {
             final isSelectionInProgress =
                 ref.watch(pod.select((value) => value.isSelectionInProgress));
+            final showMarkedArea =
+                ref.watch(pod.select((value) => value.showMarkedArea));
             return Container(
               margin: const EdgeInsets.symmetric(vertical: 45, horizontal: 20),
               width: double.infinity,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  if (isSelectionInProgress) const Spacer(),
                   if (!isSelectionInProgress)
                     IconButton.filled(
-                      onPressed: () {},
-                      icon: const Icon(Icons.layers_clear_sharp),
+                      onPressed: () {
+                        ref.read(pod.notifier).toggleMarkedArea();
+                      },
+                      icon: Icon(
+                        showMarkedArea
+                            ? Icons.layers_clear_sharp
+                            : Icons.layers,
+                      ),
                     ),
                   FloatingActionButton.extended(
-                    onPressed: () {},
+                    onPressed: () {
+                      ref.read(pod.notifier).toggleMarker();
+                    },
                     label: Text(isSelectionInProgress ? "Done" : "Add Marker"),
                     icon: Icon(
                       isSelectionInProgress ? Icons.done : Icons.add,

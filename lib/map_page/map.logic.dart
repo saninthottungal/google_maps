@@ -16,4 +16,12 @@ class MapLogicNotifier extends Notifier<MapPageState> {
     previousPoints[index] = postion;
     state = state.copyWith(mapPoints: previousPoints);
   }
+
+  void toggleMarkedArea() {
+    state = state.copyWith(showMarkedArea: !state.showMarkedArea);
+  }
+
+  void toggleMarker() {
+    state = state.copyWith(isSelectionInProgress: !state.isSelectionInProgress);
+  }
 }
