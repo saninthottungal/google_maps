@@ -20,8 +20,8 @@ class MapPage extends StatelessWidget {
         title: const Text("Map Page"),
       ),
       body: Consumer(builder: (context, ref, _) {
-        final markerPoints = ref
-            .watch(mapNotifierProvider.select((value) => value.markerPoints));
+        final markerPoints =
+            ref.watch(mapNotifierProvider.select((value) => value.mapPoints));
         return GoogleMap(
           markers: List.generate(
             markerPoints.length,

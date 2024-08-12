@@ -12,8 +12,8 @@ class MapLogicNotifier extends Notifier<MapPageState> {
   }
 
   void changePosition(LatLng postion, int index) {
-    final previousPoints = state.markerPoints;
+    final previousPoints = state.mapPoints;
     previousPoints[index] = postion;
-    state = state.copyWith(markerPoints: previousPoints);
+    state = state.copyWith(mapPoints: previousPoints);
   }
 }
