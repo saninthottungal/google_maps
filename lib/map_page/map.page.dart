@@ -17,27 +17,26 @@ class MapPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final pod = mapNotifierProvider;
-    useEffect(() {
-      Future.delayed(
-        Duration.zero,
-        () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              behavior: SnackBarBehavior.floating,
-              content: Text(
-                "Tap and hold marker to change region",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(color: Colors.white),
-              ),
-            ),
-          );
-        },
-      );
-      return null;
-    });
-
+    // useEffect(() {
+    //   Future.delayed(
+    //     Duration.zero,
+    //     () {
+    //       ScaffoldMessenger.of(context).showSnackBar(
+    //         SnackBar(
+    //           behavior: SnackBarBehavior.floating,
+    //           content: Text(
+    //             "Tap and hold marker to change region",
+    //             style: Theme.of(context)
+    //                 .textTheme
+    //                 .titleLarge
+    //                 ?.copyWith(color: Colors.white),
+    //           ),
+    //         ),
+    //       );
+    //     },
+    //   );
+    //   return null;
+    // });
     return Scaffold(
       appBar: AppBar(
         title: const Text("Map Page"),
@@ -46,6 +45,10 @@ class MapPage extends HookWidget {
         alignment: Alignment.bottomLeft,
         children: [
           Consumer(builder: (context, ref, _) {
+            final isSelectionInProgress =
+                ref.watch(pod.select((value) => value.isSelectionInProgress));
+            final isDeletionInProgress =
+                ref.watch(pod.select((value) => value.isDeletionInProgress));
             final markerPoints =
                 ref.watch(pod.select((value) => value.mapPoints));
             final showMarkedArea =
@@ -72,11 +75,12 @@ class MapPage extends HookWidget {
                   },
                 ),
               ).toSet(),
-              polygons: markerPoints.length < 3
+              polygons: markerPoints.isEmpty ||
+                      isDeletionInProgress ||
+                      isSelectionInProgress
                   ? {}
                   : <Polygon>{
                       Polygon(
-                        geodesic: true,
                         polygonId: const PolygonId("1"),
                         points: [
                           ...markerPoints,
