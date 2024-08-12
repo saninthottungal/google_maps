@@ -1,5 +1,6 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:maps/map_page/convex_hull.dart';
 import 'package:maps/map_page/map.state.dart';
 
 final mapNotifierProvider =
@@ -31,7 +32,8 @@ class MapLogicNotifier extends Notifier<MapPageState> {
 
   void addMarker({required LatLng postion}) {
     final previousPoints = [...state.mapPoints];
-    state = state.copyWith(mapPoints: [...previousPoints, postion]);
+    final listOfPositions = [...previousPoints, postion];
+    state = state.copyWith(mapPoints: listOfPositions);
   }
 
   void removeMarker() {
@@ -43,5 +45,11 @@ class MapLogicNotifier extends Notifier<MapPageState> {
 
   void selectedMarker(LatLng postion) {
     state = state.copyWith(selectedPostion: postion);
+  }
+
+  void sortMarkerPoints() {
+    final mapPoints = [...state.mapPoints];
+    final sortedPoints = convexHull(mapPoints);
+    state = state.copyWith(mapPoints: sortedPoints);
   }
 }

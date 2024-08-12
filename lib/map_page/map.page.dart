@@ -134,8 +134,12 @@ class MapPage extends HookWidget {
                     onPressed: () {
                       if (ref.read(pod).isDeletionInProgress) {
                         ref.read(pod.notifier).removeMarker();
+                        ref.read(pod.notifier).sortMarkerPoints();
                         ref.read(pod.notifier).toggleDeletion();
                       } else {
+                        if (isSelectionInProgress) {
+                          ref.read(pod.notifier).sortMarkerPoints();
+                        }
                         ref.read(pod.notifier).toggleSelection();
                       }
                     },
