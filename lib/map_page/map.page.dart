@@ -20,20 +20,33 @@ class MapPage extends StatelessWidget {
         title: const Text("Map Page"),
       ),
       body: Consumer(builder: (context, ref, _) {
-        final polyPoints =
-            ref.watch(mapNotifierProvider.select((value) => value.polyPoints));
+        final markerPoints = ref
+            .watch(mapNotifierProvider.select((value) => value.markerPoints));
         return GoogleMap(
+          markers: List.generate(
+            markerPoints.length,
+            (index) => Marker(
+              markerId: MarkerId("$index"),
+              position: markerPoints[index],
+              draggable: true,
+            ),
+          ).toSet(),
           polygons: <Polygon>{
             Polygon(
               polygonId: const PolygonId("1"),
-              points: polyPoints,
+              points: [
+                ...markerPoints,
+                markerPoints.first,
+              ],
               fillColor: Colors.blue.shade100,
               strokeColor: Colors.grey,
               strokeWidth: 5,
             )
           },
           initialCameraPosition: _cameraPosition,
-          onMapCreated: (controller) => _controller.complete(controller),
+          onMapCreated: (controller) {
+            _controller.complete(controller);
+          },
         );
       }),
     );
