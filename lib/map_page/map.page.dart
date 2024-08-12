@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class MapPage extends StatelessWidget {
   MapPage({super.key});
@@ -17,10 +18,12 @@ class MapPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Map Page"),
       ),
-      body: GoogleMap(
-        initialCameraPosition: _cameraPosition,
-        onMapCreated: (controller) => _controller.complete(controller),
-      ),
+      body: Consumer(builder: (context, ref, _) {
+        return GoogleMap(
+          initialCameraPosition: _cameraPosition,
+          onMapCreated: (controller) => _controller.complete(controller),
+        );
+      }),
     );
   }
 }
