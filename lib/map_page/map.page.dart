@@ -48,6 +48,7 @@ class MapPage extends HookWidget {
           Consumer(builder: (context, ref, _) {
             final markerPoints =
                 ref.watch(pod.select((value) => value.mapPoints));
+            print(markerPoints);
             final showMarkedArea =
                 ref.watch(pod.select((value) => value.showMarkedArea));
             return GoogleMap(
@@ -62,27 +63,33 @@ class MapPage extends HookWidget {
                   markerId: MarkerId("$index"),
                   position: markerPoints[index],
                   draggable: true,
+                  onTap: () {
+                    ref
+                        .read(pod.notifier)
+                        .removeMarker(postion: markerPoints[index]);
+                  },
                   onDragEnd: (value) {
                     ref.read(pod.notifier).changePosition(value, index);
                   },
                 ),
               ).toSet(),
-              polygons: <Polygon>{
-                Polygon(
-                  geodesic: true,
-                  polygonId: const PolygonId("1"),
-                  points: markerPoints.isEmpty
-                      ? []
-                      : [
+              polygons: markerPoints.length < 3
+                  ? {}
+                  : <Polygon>{
+                      Polygon(
+                        geodesic: true,
+                        polygonId: const PolygonId("1"),
+                        points: [
                           ...markerPoints,
                           markerPoints.first,
                         ],
-                  fillColor:
-                      showMarkedArea ? Colors.black26 : Colors.transparent,
-                  strokeColor: Colors.black38,
-                  strokeWidth: 4,
-                )
-              },
+                        fillColor: showMarkedArea
+                            ? Colors.black26
+                            : Colors.transparent,
+                        strokeColor: Colors.black38,
+                        strokeWidth: 4,
+                      )
+                    },
               initialCameraPosition: _cameraPosition,
               onMapCreated: (controller) {
                 _controller.complete(controller);

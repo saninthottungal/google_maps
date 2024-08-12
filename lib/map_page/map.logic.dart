@@ -29,4 +29,10 @@ class MapLogicNotifier extends Notifier<MapPageState> {
     final previousPoints = [...state.mapPoints];
     state = state.copyWith(mapPoints: [...previousPoints, postion]);
   }
+
+  void removeMarker({required LatLng postion}) {
+    final previousPoints = [...state.mapPoints];
+    previousPoints.remove(postion);
+    state = state.copyWith(mapPoints: previousPoints);
+  }
 }
